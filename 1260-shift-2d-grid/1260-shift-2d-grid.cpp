@@ -1,9 +1,9 @@
 class Solution {
 public:
     vector<vector<int>> shiftGrid(vector<vector<int>>& grid, int k) {
+        int i;
         const int r = grid.size();
         const int c = grid[0].size();
-        int i;
         vector<vector<int>> ans(r, vector<int>(c, 0));
         for (i = 0; i < r * c; ++i) {
             int ori_y = i / c;

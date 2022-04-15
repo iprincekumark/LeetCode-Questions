@@ -11,7 +11,6 @@
  */
 class Solution {
 public:
-    //TreeNode* ans = new TreeNode();
     TreeNode* help(TreeNode* root, int l, int h) {
         if(root == NULL)
             return NULL;

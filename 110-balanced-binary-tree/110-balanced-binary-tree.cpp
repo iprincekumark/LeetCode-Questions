@@ -14,10 +14,9 @@ public:
     int help(TreeNode* root) {
         if(root == NULL)
             return 0;
-        int lh = help(root->left);
+        int lh = help(root->left), rh = help(root->right);
         if(lh == -1)
             return -1;
-        int rh = help(root->right);
         if(rh == -1)
             return -1;
         

@@ -15,11 +15,12 @@ public:
         if(root == NULL)
             return 0;
         int lh = help(root->left);
-        int rh = help(root->right);
         if(lh == -1)
             return -1;
+        int rh = help(root->right);
         if(rh == -1)
             return -1;
+        
         if(1 < abs(lh-rh))
             return -1;
         else

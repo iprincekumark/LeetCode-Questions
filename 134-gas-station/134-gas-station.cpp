@@ -1,6 +1,7 @@
 class Solution {
 public:
     int canCompleteCircuit(vector<int>& gas, vector<int>& cost) {
+        /*
         if( (accumulate(gas.begin(), gas.end(), 0)) < (accumulate(cost.begin(), cost.end(), 0)))
             return -1;
         int n=gas.size();
@@ -14,10 +15,10 @@ public:
             }
         }
         return ans;
-        /*
+        */
         int i, left=0, ans=0, lg= gas.size(), totalgas, totalcost;
-        totalgas = accumulate(gas.begin(), gas.end(), 0);
-        totalcost = accumulate(cost.begin(), cost.end(), 0);
+        totalgas = (accumulate(gas.begin(), gas.end(), 0));
+        totalcost = (accumulate(cost.begin(), cost.end(), 0));
         if(totalgas < totalcost)
             return -1;
         for(i=0; i<lg; i++) {
@@ -28,6 +29,6 @@ public:
             }
         }
         return ans;
-        */
+        
     }
 };

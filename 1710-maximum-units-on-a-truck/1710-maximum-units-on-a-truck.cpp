@@ -1,8 +1,5 @@
 class Solution {
 public:
-    static bool  myfunction(vector<int> &a, vector<int> &b) {
-        return a[1] > b[1];
-    }
     int maximumUnits(vector<vector<int>>& boxTypes, int truckSize) {
         int limit=0, totalUnits=0, leftBox=0;
         priority_queue<pair<int, int>> pq;

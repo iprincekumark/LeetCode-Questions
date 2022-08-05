@@ -9,12 +9,15 @@ public:
     int countSum(vector<int>& nums, int target, vector<int>& sumArray) {
         if(sumArray[target]>-1)
             return sumArray[target];
-        int count=0;
-        for(int i=0; i<nums.size(); i++) {
-            if(nums[i]<=target)
-                count += countSum(nums, target-nums[i], sumArray);
+        int sum=0;
+        for(int i=0 ; i<nums.size(); i++) {
+            if(nums[i] <= target)
+                sum += countSum(nums, target-nums[i], sumArray);
+                // 4 -> (1, [3])
+                // 3 -> (2, [2])
+                // 2 -> (1, [1])
         }
-        sumArray[target] = count;
-        return count;
+        sumArray[target] = sum;
+        return sum;
     }
 };

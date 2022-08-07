@@ -10,9 +10,9 @@ public:
     }
     void help(int start, vector<int> curr, vector<int>& nums) {
         ans.push_back(curr);
-        for (int i = start; i < nums.size(); i++) {
+        for(int i=start; i<nums.size(); i++) {
             curr.push_back(nums[i]);
-            help(i + 1, curr, nums);
+            help(i+1, curr, nums);
             curr.pop_back();
         }
     }

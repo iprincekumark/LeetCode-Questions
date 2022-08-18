@@ -2,7 +2,7 @@ class Solution {
 public:
     int minSetSize(vector<int>& arr) {
         map<int, int> mp;
-        int ln=arr.size(), half = ln, ans=0;
+        int ln=arr.size(), half = 0, ans=0;
         for(auto it:arr) {
             mp[it]++;
         }
@@ -12,9 +12,9 @@ public:
         }
         
         for(auto it = mm.begin(); it!=mm.end(); it++) {
-            half -= it->first;
+            half += it->first;
             ans++;
-            if(half <= (ln/2))
+            if(half >= (ln/2))
                 return ans;
                 
         }

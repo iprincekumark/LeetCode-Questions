@@ -1,61 +1,65 @@
 class NumArray {
 public:
-    vector<int> seg;
-    int n; 
-    void buildTree(vector<int>& nums, int pos, int left, int right){
-        if (left == right){
-            seg[pos] = nums[left]; 
+    static const int N = 1e5+2;
+    vector<int> a;
+    int tree[4*N];
+    int size;
+    
+    void solve(int node,int st,int en){
+        if(st==en)
+        {
+            tree[node]=a[st];
             return;
         }
-        int mid = (left+right)/2;
-        buildTree(nums, 2*pos+1, left, mid);
-        buildTree(nums, 2*pos+2, mid+1, right);
-        seg[pos]=seg[2*pos+1]+ seg[2*pos+2];
+        int mid=(st+en)/2;
+        solve(2*node,st,mid);
+        solve((2*node)+1,mid+1,en);
+        tree[node]=tree[2*node]+tree[(2*node)+1];
     }
-    void updateUtil(int pos, int left, int right, int index, int val) {
-        if(index <left || index >right) 
-            return;
-        if(left==right){
-            if(left==index)
-                seg[pos]=val;
+    void solveupdater(int node,int st,int en,int idx,int val){
+        if(st==en)
+        {
+            a[st]=val;
+            tree[node]=val;
             return;
         }
-
-        int mid=(left+right)/2;
-        updateUtil(2*pos+1,left,mid,index,val); // left child
-        updateUtil(2*pos+2,mid+1,right,index,val); // right child
-        seg[pos]=seg[2*pos+1]+seg[2*pos+2];
+        int mid=(st+en)/2;
+        if(idx<=mid)
+        {
+            solveupdater(2*node,st,mid,idx,val);
+        }
+        else
+        {
+            solveupdater((2*node)+1,mid+1,en,idx,val);   
+        }
+        tree[node]=tree[2*node]+tree[(2*node)+1];
     }
-
-    int rangeUtil(int qlow, int qhigh, int low, int high, int pos){
-        if (qlow <= low && qhigh>= high){ 
-            return seg[pos];
-        }
-        if (qlow > high || qhigh < low) { 
+    int solverrange(int node,int st,int en,int l,int r){
+        if(st>r || en<l)
+        {
             return 0;
         }
-        // partial overlap
-        int mid = low+(high-low)/2;
-        return (rangeUtil(qlow, qhigh, low, mid, 2*pos+1) + rangeUtil(qlow, qhigh, mid+1, high, 2*pos+2));
-    }
-    
-    // Constructor for initializing the variables.
-    NumArray(vector<int>& nums) {
-        if(nums.size() > 0){
-            n = nums.size();
-            seg.resize(4*n,0);  
-            buildTree(nums, 0, 0, n-1); 
+        if(st>=l && en<=r)
+        {
+            return tree[node];
         }
+        int mid=(st+en)/2;
+        int k1=solverrange(2*node,st,mid,l,r);
+        int k2=solverrange((2*node)+1,mid+1,en,l,r);
+        return k1+k2;
+    }
+    NumArray(vector<int>& nums) {
+        a=nums;
+        size=nums.size()-1;
+        solve(1,0,nums.size()-1);
     }
     
     void update(int index, int val) {
-        if(n==0)return;
-        updateUtil(0,0,n-1, index, val);
+        solveupdater(1,0,size,index,val);
     }
     
     int sumRange(int left, int right) {
-        if(n==0)return 0;
-        return rangeUtil(left, right, 0, n-1, 0); 
+        return solverrange(1,0,size,left,right);
     }
 };
 

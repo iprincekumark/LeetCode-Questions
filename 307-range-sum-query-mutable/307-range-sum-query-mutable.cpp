@@ -1,10 +1,9 @@
 class NumArray {
 public:
-    static const int N = 1e5+2;
+    // static const int N = 1e5+2;
     vector<int> a;
-    int tree[4*N];
+    int *tree;
     int size;
-    
     void solve(int node,int st,int en){
         if(st==en)
         {
@@ -51,6 +50,7 @@ public:
     NumArray(vector<int>& nums) {
         a=nums;
         size=nums.size()-1;
+        tree=new int[nums.size()*4];
         solve(1,0,nums.size()-1);
     }
     

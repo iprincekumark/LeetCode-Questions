@@ -5,9 +5,9 @@ public:
         unordered_map<char, int> mp1;
         unordered_map<char, int> mp2;
         while(1) {
-            for(auto i:ransomNote)
+            for(auto &i:ransomNote)
                 mp1[i]++;
-            for(auto i:magazine)
+            for(auto &i:magazine)
                 mp2[i]++;
             break;
         }

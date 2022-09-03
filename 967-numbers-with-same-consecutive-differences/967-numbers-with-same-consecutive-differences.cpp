@@ -1,15 +1,8 @@
 class Solution {
 public:
     vector<int> ans;
-    int noOfDigits(int num){
-        int count=0;
-        while(num>0){
-            count++;
-            num /= 10;
-        }
-        return count;
-    }
     void help(int num, int n, int k){
+        auto noOfDigits = [] (int num, int count=0) { while(num>0) { count++, num /= 10; } return count;};
         if(noOfDigits(num) == n){
             ans.push_back(num);
             return;

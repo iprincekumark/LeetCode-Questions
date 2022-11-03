@@ -1,19 +1,17 @@
 class Solution {
 public:
-    int numRollsToTarget(int n, int k, int tar) {
-        int DP[n+1][tar+1];
-        const int M=1e9+7;
-        for(int i=n; i>=0; i--){
-            for(int t=0; t<=tar; t++){
-                if(i==n){
-                    DP[i][t]=(t==0?1:0);
-                    continue;
+    int numRollsToTarget(int d, int f, int target) {
+        int m=1000000007;
+        vector<vector<int> > dp(d+1, vector<int>(target+1, 0));
+        dp[0][0]=1;
+        for(int i=1; i<=d; i++){
+            for(int j=1; j<=target; j++){
+                for(int k=1; k<=f; k++){
+                    if(k<=j)
+                        dp[i][j]=((dp[i][j]%m)+(dp[i-1][j-k]%m))%m;
                 }
-                DP[i][t]=0;
-                for(int j=1; j<=min(k, t); j++)
-                    DP[i][t] = (DP[i][t]+DP[i+1][t-j])%M;
             }
         }
-        return DP[0][tar];
+        return dp[d][target];
     }
 };

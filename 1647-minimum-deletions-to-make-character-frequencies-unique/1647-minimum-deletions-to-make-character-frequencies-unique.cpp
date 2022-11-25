@@ -1,16 +1,19 @@
 class Solution {
 public:
     int minDeletions(string s) {
-        vector<int> frequency(26);
+        int freq[26] = {0};
         for(auto &ch:s)
-            frequency[ch-'a']++;
-        int totalDeletions = 0, nextUsedFreq = s.size();
-        sort(frequency.begin(), frequency.end(), greater<int>());
-        for(auto &freq:frequency){
-            nextUsedFreq = min(nextUsedFreq, freq);
-            totalDeletions += freq - nextUsedFreq;
-            if(nextUsedFreq>0)  nextUsedFreq--;
+            freq[ch-'a']++;
+        int ans=0, last = s.size()+1;
+        sort(freq, freq+26, greater<int>());
+        for(int i=0; i<26; i++){
+            if(freq[i] == 0)    break;
+            if(last <= freq[i]){
+                ans += freq[i]-last + (last!=0);
+                freq[i] = last - (last!=0);
+            }
+            last = freq[i];
         }
-        return totalDeletions;
+        return ans;
     }
 };
